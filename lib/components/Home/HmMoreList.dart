@@ -11,6 +11,7 @@ class _HmMorelistState extends State<HmMorelist> {
   @override
   Widget build(BuildContext context) {
     return SliverGrid.builder(
+      itemCount: 100,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2, //网格是2列
         mainAxisSpacing: 10, //主轴间距
@@ -20,9 +21,12 @@ class _HmMorelistState extends State<HmMorelist> {
         return Container(
           height: 200,
           width: 200,
-          color:Colors.blue,
+          color: Colors.blue,
           alignment: Alignment.center,
-          child: Text('无限产品滚动列表项',style: TextStyle(color:Colors.white),),
+          child: Text(
+            '无限产品滚动列表项${index + 1}',
+            style: TextStyle(color: Colors.white),
+          ),
         );
       },
     );
