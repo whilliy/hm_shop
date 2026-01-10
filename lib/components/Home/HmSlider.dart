@@ -11,6 +11,7 @@ class HmSlider extends StatefulWidget {
 }
 
 class _HmSliderState extends State<HmSlider> {
+  //轮播图
   Widget _getSlider() {
     //在Flutter中获取屏幕宽度的方法
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -34,11 +35,35 @@ class _HmSliderState extends State<HmSlider> {
     );
   }
 
+  Widget _getSearch() {
+    return Positioned(
+      top: 10, //距离Stack顶部的距离
+      left: 0,
+      right: 0, //同时设置left&right=0，将位于Stack中的子组件的长度拉伸
+      child: Padding(
+        padding: EdgeInsets.all(10),
+        child: Container(
+          height: 50,
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.symmetric(horizontal: 40),
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(0, 0, 0, 0.4),
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Text(
+            "搜索...",
+            style: TextStyle(color: Colors.white, fontSize: 16),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // 放Stack，然后里面放上轮播图 搜索框 指示灯导航
-    return Stack(children: [_getSlider()]);
-    
+    return Stack(children: [_getSlider(), _getSearch()]);
+
     // return Container(
     //   alignment: Alignment.center,
     //   height: 300,
