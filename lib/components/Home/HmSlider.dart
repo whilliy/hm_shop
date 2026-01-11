@@ -11,6 +11,9 @@ class HmSlider extends StatefulWidget {
 }
 
 class _HmSliderState extends State<HmSlider> {
+  final CarouselSliderController _controller =
+      CarouselSliderController(); //控制轮播图跳转的控制器
+  int _currentIndex = 0;
   //轮播图
   Widget _getSlider() {
     //在Flutter中获取屏幕宽度的方法
@@ -18,6 +21,7 @@ class _HmSliderState extends State<HmSlider> {
     //返回轮播图插件
     //根据数据渲染的不同的轮播选项
     return CarouselSlider(
+      carouselController: _controller,
       items: List.generate(widget.bannerList.length, (index) {
         return Image.network(
           widget.bannerList[index].imgUrl,
@@ -30,7 +34,11 @@ class _HmSliderState extends State<HmSlider> {
         height: 300,
         viewportFraction: 1,
         autoPlay: true,
-        autoPlayInterval: Duration(seconds: 5),
+        //autoPlayInterval: Duration(seconds: 5),
+        onPageChanged: (index, reason) {
+          _currentIndex = index;
+          setState(() {});
+        },
       ),
     );
   }
@@ -59,10 +67,44 @@ class _HmSliderState extends State<HmSlider> {
     );
   }
 
+  Widget _getDots() {
+    return Positioned(
+      right: 0,
+      left: 0,
+      bottom: 10,
+      child: SizedBox(
+        height: 40,
+        width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(widget.bannerList.length, (index) {
+            return GestureDetector(
+              onTap: () {
+                _controller.jumpToPage(index);
+              },
+              child:AnimatedContainer(
+                duration: Duration(microseconds: 300),
+                height: 6,
+                width: index == _currentIndex ? 40 : 20, //选中的时候宽度是40，否则宽度是20
+                margin: EdgeInsets.symmetric(horizontal: 4),
+                decoration: BoxDecoration(
+                  color: index == _currentIndex
+                      ? Colors.white
+                      : Color.fromRGBO(0, 0, 0, 0.3), //根据是否选中显示不同的颜色（和宽度见上）
+                  borderRadius: BorderRadius.circular(3),
+                ),
+              ),
+            );
+          }),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // 放Stack，然后里面放上轮播图 搜索框 指示灯导航
-    return Stack(children: [_getSlider(), _getSearch()]);
+    return Stack(children: [_getSlider(), _getSearch(), _getDots()]);
 
     // return Container(
     //   alignment: Alignment.center,
