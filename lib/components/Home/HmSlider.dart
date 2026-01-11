@@ -82,7 +82,7 @@ class _HmSliderState extends State<HmSlider> {
               onTap: () {
                 _controller.jumpToPage(index);
               },
-              child:AnimatedContainer(
+              child:AnimatedContainer( //这里从Container换成了动画Container，当容器的属性发生变化的时候，自动实现动画效果 （设置 duration） 属性
                 duration: Duration(microseconds: 300),
                 height: 6,
                 width: index == _currentIndex ? 40 : 20, //选中的时候宽度是40，否则宽度是20
