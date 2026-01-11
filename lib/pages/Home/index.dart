@@ -15,7 +15,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<BannerItem> _bannerList=[];
+  List<BannerItem> _bannerList = [];
   List<Widget> _getScrollChidren() {
     return [
       //包裹普通Widget的Silver家族的组件
@@ -60,11 +60,10 @@ class _HomeViewState extends State<HomeView> {
   }
 
   void _getBannerList() async {
-    _bannerList =await getBannerListAPI();
-    _bannerList.forEach((element) => print(element.imgUrl),);
-    setState(() {
-      
+    _bannerList = await getBannerListAPI();
+    _bannerList.forEach((element) {
     });
+    setState(() {});
   }
 
   @override
